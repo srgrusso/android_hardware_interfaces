@@ -161,9 +161,10 @@ TEST_F(RadioHidlTest, changeIccPin2ForApp) {
             EXPECT_EQ(std::cv_status::no_timeout, wait());
             EXPECT_EQ(serial, radioRsp->rspInfo.serial);
             EXPECT_EQ(RadioResponseType::SOLICITED, radioRsp->rspInfo.type);
-            ASSERT_TRUE(CheckAnyOfErrors(
-                radioRsp->rspInfo.error,
-                {RadioError::PASSWORD_INCORRECT, RadioError::REQUEST_NOT_SUPPORTED}));
+            ASSERT_TRUE(
+                CheckAnyOfErrors(radioRsp->rspInfo.error,
+                                 {RadioError::PASSWORD_INCORRECT, RadioError::REQUEST_NOT_SUPPORTED,
+                                  RadioError::SIM_PUK2}));
         }
     }
 }

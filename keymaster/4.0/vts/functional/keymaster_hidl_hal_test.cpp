@@ -538,6 +538,12 @@ TEST_F(NewKeyGenerationTest, EcdsaAllValidSizes) {
  * Verifies that keymaster does not support any curve designated as unsupported.
  */
 TEST_F(NewKeyGenerationTest, EcdsaAllValidCurves) {
+    Digest digest;
+    if (SecLevel() == SecurityLevel::STRONGBOX) {
+        digest = Digest::SHA_2_256;
+    } else {
+        digest = Digest::SHA_2_512;
+    }
     for (auto curve : ValidCurves()) {
         EXPECT_EQ(
             ErrorCode::OK,
